@@ -34,7 +34,7 @@ export default function AccountNav({ user }: Props) {
     <div className="relative" ref={dropDownRef}>
       <button
       onClick={ toggleDropDown }
-      className="relative w-8 aspect-square"
+      className="relative w-10 aspect-square"
       > 
         {user.image && 
         <Image fill src={ user.image } alt="User profile image" referrerPolicy="no-referrer" 
