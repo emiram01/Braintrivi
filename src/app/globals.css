@@ -9,3 +9,9 @@
 body {
     background-color: var(--clr-bg);
 }
+
+.bg-pattern {
+    background-image: url('/bg-pattern.svg');
+    background-repeat: repeat;
+    opacity: 30%;
+}

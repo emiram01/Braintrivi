@@ -19,7 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        {children}
+        <div className="absolute top-0 left-0 -z-10 w-screen h-screen bg-pattern pointer-events-none" />
+        <div className="">{children}</div>
       </body>
     </html>
   )

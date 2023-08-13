@@ -1,13 +1,13 @@
 import HistoryCard from "@/components/dashboard/HistoryCard";
 import NewGameCard from "@/components/dashboard/NewGameCard";
-import RecentActivityCard from "@/components/dashboard/RecentActivityCard";
+import StatsCard from "@/components/dashboard/StatsCard";
 import TrendingCard from "@/components/dashboard/TrendingCard";
 import { getAuthSession } from "@/lib/nextauth";
 import type { Metadata } from 'next'
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: 'Braintrivi | Dashboard',
+  title: 'Dashboard | Braintrivi',
 }
 
 export default async function Dashboard() {
@@ -18,15 +18,13 @@ export default async function Dashboard() {
 
   return ( 
     <main className="px-4 py-10 mx-auto max-w-7xl">
-      <div className="flex items-center">
-        <h2 className="mr-2 text-3xl font-bold">Dashboard</h2>
-      </div>
+      <h2 className="mr-2 mb-2 text-3xl font-bold">Dashboard</h2>
 
       <div className="grid grid-cols-1 gap-2 md:gap-4 md:grid-cols-2">
         <NewGameCard />
-        <HistoryCard />
         <TrendingCard />
-        <RecentActivityCard />
+        <HistoryCard />
+        <StatsCard />
       </div>
     </main>  
   )

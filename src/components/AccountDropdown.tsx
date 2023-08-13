@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SignOutButton from "./SignOutButton";
 
 type Props = {
@@ -14,16 +15,19 @@ export default function AccountDropdown({ name, email }: Props) {
     </div>
     <ul className="py-2" aria-labelledby="dropdownInformationButton">
       <li>
-        <a href="/" className="block px-4 py-2 hover:bg-rose-50">Dashboard</a>
+        <Link href="/dashboard" className="block px-4 py-2 hover:bg-rose-50">Dashboard</Link>
       </li>
       <li>
-        <a href="/" className="block px-4 py-2 hover:bg-rose-50">Trending Topics</a>
+        <Link href="/trivia" className="block px-4 py-2 hover:bg-rose-50">Generate New Trivia</Link>
       </li>
       <li>
-        <a href="/" className="block px-4 py-2 hover:bg-rose-50">History</a>
+        <Link href="/trending" className="block px-4 py-2 hover:bg-rose-50">Trending Topics</Link>
       </li>
       <li>
-        <a href="/" className="block px-4 py-2 hover:bg-rose-50">Settings</a>
+        <Link href="/stats" className="block px-4 py-2 hover:bg-rose-50">My Stats</Link>
+      </li>
+      <li>
+        <Link href="/history" className="block px-4 py-2 hover:bg-rose-50">History</Link>
       </li>
     </ul>
     <div className="py-2">
