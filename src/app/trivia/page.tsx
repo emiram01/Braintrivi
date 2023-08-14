@@ -1,4 +1,4 @@
-import CreateTrivia from "@/components/trivia/CreateTrivia";
+import CreateTrivia from "@/components/triviaCreationForm/CreateTrivia";
 import { getAuthSession } from "@/lib/nextauth";
 import type { Metadata } from 'next'
 import { redirect } from "next/navigation";

@@ -44,7 +44,49 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  image    String?
-  accounts Account[]
-  sessions Session[]
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  games         Game[]
+}
+
+enum GameType {
+  multiple_choice
+  fill_in
+  true_or_false
+}
+
+enum GameDifficulty {
+  easy
+  medium
+  hard
+}
+
+model Game {
+  id             String         @id @default(cuid())
+  userId         String
+  timeStarted    DateTime
+  topic          String
+  timeEnded      DateTime?
+  gameType       GameType
+  gameDifficulty GameDifficulty
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questions      Question[]
+
+  @@index([userId], name: "userId")
+}
+
+model Question {
+  id           String @id @default(cuid())
+  question     String
+  answer       String
+  gameId       String
+  options      Json?
+  correctness  Float?
+  isCorrect    Boolean?
+  questionType GameType
+  userAnswer   String?
+
+  game         Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  @@index([gameId], name: "gameId")
 }
