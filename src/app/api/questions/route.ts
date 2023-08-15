@@ -21,7 +21,7 @@ export const POST = async (req: Request, res: Response) => {
         let questions: any;
         if (type === "fill_in") {
             questions = await strict_output(
-                "You are a helpful AI that is able to generate a pair of questions and answers, the answer should not exceed 15 words, store all the pairs of answers and questions in JSON",
+                "You are a helpful AI that is able to generate a pair of questions and answers, the answer should not exceed 15 words",
                 new Array(amount).fill(`You are to generate a random open-ended question about ${ topic }. The difficulty of the question should be ${ difficulty }.`),
                 {
                     question: "question",
@@ -30,7 +30,7 @@ export const POST = async (req: Request, res: Response) => {
             )
         } else if (type === "multiple_choice") {
             questions = await strict_output(
-                "You are a helpful AI that is able to generate multiple choice questions and answers, the length of each answer should not exceed 15 words, store all the pairs of answers and questions in JSON",
+                "You are a helpful AI that is able to generate multiple choice questions and answers, the length of each answer should not exceed 15 words",
                 new Array(amount).fill(`You are to generate a random multiple choice question about ${ topic }. The difficulty of the question should be ${ difficulty }.`),
                 {
                     question: "question",
@@ -42,7 +42,7 @@ export const POST = async (req: Request, res: Response) => {
             )
         } else if (type === "true_or_false") {
             questions = await strict_output(
-                "You are a helpful AI that is able to generate true or false questions, store all the pairs of answers and questions in JSON",
+                "You are a helpful AI that is able to generate true or false questions",
                 new Array(amount).fill(`You are to generate a random true or false question about ${ topic }. The difficulty of the question should be ${ difficulty }.`),
                 {
                     question: "question",

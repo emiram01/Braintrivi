@@ -9,7 +9,7 @@ type Props = {
   }
 }
 
-export default async function MultipleChoicePage({params: {gameId}}: Props) {
+export default async function TrueOrFalsePage({params: {gameId}}: Props) {
   const session = await getAuthSession();
   if (!session?.user) {
     redirect("/");
@@ -30,7 +30,7 @@ export default async function MultipleChoicePage({params: {gameId}}: Props) {
     },
   });
 
-  if (!game || game.gameType !== "multiple_choice") {
+  if (!game || game.gameType !== "true_or_false") {
     redirect("/trivia");
   }
 

@@ -8,7 +8,7 @@ type Props = {
 
 export default function AccountDropdown({ name, email }: Props) {
   return (
-    <div className="z-10 bg-white divide-y divide-rose-100 rounded-lg shadow border-2 border-rose-100 w-52 text-sm text-gray-700">
+    <div className="z-10 bg-white divide-y divide-rose-100 rounded-lg shadow shadow-rose-50 border-2 border-rose-100 w-52 text-sm text-gray-700">
     <div className="px-4 py-3">
       {name && <div className="font-medium truncate">{ name }</div>}
       {email && <div className="truncate">{ email }</div>}
