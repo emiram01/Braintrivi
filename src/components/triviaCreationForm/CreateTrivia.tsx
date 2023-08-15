@@ -9,29 +9,58 @@ import FormLabel from "./FormLabel";
 import FormError from "./FormError";
 import FormTypeButton from "./FormTypeButton";
 import FormDifficultyButton from "./FormDifficultyButton";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-type FormData = z.infer<typeof triviaCreationSchema>;
+type TriviaFormData = z.infer<typeof triviaCreationSchema>;
 
 export default function CreateTrivia() {
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<FormData>({
+  const router = useRouter();
+  const { mutate: getQuestions, isLoading } = useMutation({
+    mutationFn: async ({ amount, topic, type, difficulty }: TriviaFormData) => {
+      const response = await axios.post('/api/game', {
+        amount, topic, type, difficulty,
+      });
+      return response.data;
+    }
+  })
+
+  const { register, handleSubmit, formState: { errors }, getValues, setValue, watch } = useForm<TriviaFormData>({
     resolver: zodResolver(triviaCreationSchema),
     defaultValues: {
-      amount: 5,
-      topic: "Random",
+      amount: undefined,
+      topic: "",
       type: "multiple_choice",
-      difficulty: "medium",
+      difficulty: "easy",
     },
   })
 
   watch(["type", "difficulty"]);
 
-  const submitData = (input: FormData) => {
-    alert(JSON.stringify(input, null, 2))
+  const submitData = (input: TriviaFormData) => {
+    getQuestions({
+      amount: input.amount,
+      topic: input.topic,
+      type: input.type,
+      difficulty: input.difficulty,
+    }, {
+      onSuccess: ({ gameId }) => {
+        if (getValues("type") === "multiple_choice") {
+          router.push(`/play/multiple-choice/${ gameId }`);
+        } else if (getValues("type") === "fill_in") {
+          router.push(`/play/fill-in/${ gameId }`);
+        } else if (getValues("type") === "true_or_false") {
+          router.push(`/play/true-or-false/${ gameId }`);
+        }
+      }
+    }
+    )
   }
 
   return (
     <div className="flex items-center justify-center">
-      <div className="max-w-md w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow shadow-rose-50 m-4">
+      <div className="max-w-md w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow shadow-rose-50 m-4 md:mt-8">
         <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-900">Generate New Trivia</h5>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit(submitData)}>
           <FormLabel text="Choose a topic"/>
@@ -88,7 +117,13 @@ export default function CreateTrivia() {
           </div>
           {errors.difficulty && <FormError text={ errors.difficulty.message } />}
 
-          <button className="mt-3 bg-rose-400 text-white font-semibold text-xl p-2 rounded-lg mx-auto w-1/2 hover:bg-rose-500" type="submit">Start</button>
+          <button 
+            className="mt-3 bg-rose-400 text-white font-semibold text-xl p-2 rounded-lg mx-auto w-1/2 hover:bg-rose-500 disabled:bg-gray-400 disabled:hover:bg-gray-400" 
+            type="submit"
+            disabled={isLoading}
+          >
+            Start
+          </button>
         </form>
       </div>
     </div>

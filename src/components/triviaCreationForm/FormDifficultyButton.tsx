@@ -10,7 +10,7 @@ type Props = {
 export default function FormDifficultyButton({ text, icon, isSelected, select }: Props) {
   return (
     <button
-      className={`flex md:w-32 items-center gap-4 p-3 rounded-lg border-2 border-rose-100 hover:border-rose-500 ${
+      className={`flex md:w-32 items-center gap-3 p-3 rounded-lg border-2 border-rose-100 hover:border-rose-500 ${
       isSelected ? 'bg-rose-100 border-rose-200' : 'bg-white'}`}
       onClick={(e) => {
         e.preventDefault();

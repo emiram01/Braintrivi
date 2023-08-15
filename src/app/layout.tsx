@@ -2,6 +2,7 @@ import Navbar from '@/components/navbar/Navbar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Providers from '@/components/Providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
-        <div className="absolute top-0 left-0 -z-10 w-screen h-screen bg-pattern pointer-events-none" />
-        <div className="">{children}</div>
+        <Providers>
+          <Navbar />
+          <div className="absolute top-0 left-0 -z-10 w-screen h-screen bg-pattern pointer-events-none" />
+          <div>{children}</div>
+        </Providers>
       </body>
     </html>
   )

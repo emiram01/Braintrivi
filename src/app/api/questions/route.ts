@@ -2,12 +2,13 @@ import { NextResponse } from "next/server"
 import { triviaCreationSchema } from "@/schemas/triviaCreationSchema";
 import { ZodError } from "zod";
 import { strict_output } from "@/lib/gpt";
-import { getAuthSession } from "@/lib/nextauth";
+import { headers } from "next/headers"
 
 // POST api/questions 
 export const POST = async (req: Request, res: Response) => {
-    const session = await getAuthSession();
-    if (!session?.user) {
+    const session = await headers().get("authorization");
+
+    if (!session) {
         return NextResponse.json(
             { error: "Must be logged in to play.", }, 
             { status: 401, },
@@ -20,8 +21,8 @@ export const POST = async (req: Request, res: Response) => {
         let questions: any;
         if (type === "fill_in") {
             questions = await strict_output(
-                "You are a helpful AI that is able to generate a pair of questions and answers, the answer should not exceed 15 words, store all the pairs of answers and questions in a JSON array",
-                new Array(amount).fill(`You are to generate a random ${ difficulty }-level open-ended question about ${ topic }`),
+                "You are a helpful AI that is able to generate a pair of questions and answers, the answer should not exceed 15 words, store all the pairs of answers and questions in JSON",
+                new Array(amount).fill(`You are to generate a random open-ended question about ${ topic }. The difficulty of the question should be ${ difficulty }.`),
                 {
                     question: "question",
                     answer: "answer with max length of 15 words",
@@ -29,8 +30,8 @@ export const POST = async (req: Request, res: Response) => {
             )
         } else if (type === "multiple_choice") {
             questions = await strict_output(
-                "You are a helpful AI that is able to generate multiple choice questions and answers, the length of each answer should not exceed 15 words",
-                new Array(amount).fill(`You are to generate a random ${ difficulty }-level multiple choice question about ${ topic }`),
+                "You are a helpful AI that is able to generate multiple choice questions and answers, the length of each answer should not exceed 15 words, store all the pairs of answers and questions in JSON",
+                new Array(amount).fill(`You are to generate a random multiple choice question about ${ topic }. The difficulty of the question should be ${ difficulty }.`),
                 {
                     question: "question",
                     answer: "answer with max length of 15 words",
@@ -41,12 +42,12 @@ export const POST = async (req: Request, res: Response) => {
             )
         } else if (type === "true_or_false") {
             questions = await strict_output(
-                "You are a helpful AI that is able to generate true or false questions",
-                new Array(amount).fill(`You are to generate a random ${ difficulty }-level true or false question about ${ topic }`),
+                "You are a helpful AI that is able to generate true or false questions, store all the pairs of answers and questions in JSON",
+                new Array(amount).fill(`You are to generate a random true or false question about ${ topic }. The difficulty of the question should be ${ difficulty }.`),
                 {
                     question: "question",
-                    answer: "answer",
-                    option: "other option",
+                    answer: "answer, could only be \"true\" or \"false\"",
+                    option1: "other option, could only be \"true\" or \"false\"",
                 },
             )
         }
