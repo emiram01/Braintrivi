@@ -24,9 +24,6 @@ export default function AccountDropdown({ name, email }: Props) {
         <Link href="/trending" className="block px-4 py-2 hover:bg-rose-50">Trending Topics</Link>
       </li>
       <li>
-        <Link href="/stats" className="block px-4 py-2 hover:bg-rose-50">My Stats</Link>
-      </li>
-      <li>
         <Link href="/history" className="block px-4 py-2 hover:bg-rose-50">History</Link>
       </li>
     </ul>

@@ -1,6 +1,5 @@
 import HistoryCard from "@/components/dashboard/HistoryCard";
 import NewGameCard from "@/components/dashboard/NewGameCard";
-import StatsCard from "@/components/dashboard/StatsCard";
 import TrendingCard from "@/components/dashboard/TrendingCard";
 import { getAuthSession } from "@/lib/nextauth";
 import type { Metadata } from 'next'
@@ -24,7 +23,6 @@ export default async function Dashboard() {
         <NewGameCard />
         <TrendingCard />
         <HistoryCard />
-        <StatsCard />
       </div>
     </main>  
   )

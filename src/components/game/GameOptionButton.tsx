@@ -16,7 +16,7 @@ export default function GameOptionButton({ text, isSelected, select} : Props) {
         select();
       }}
     >
-      { isSelected ? <CircleDot /> : <Circle />} { text[0] && text[0].toUpperCase() + text.slice(1) }
+      { isSelected ? <CircleDot /> : <Circle />} { text }
     </button>
   )
 }

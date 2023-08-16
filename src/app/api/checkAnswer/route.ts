@@ -3,6 +3,7 @@ import { getAuthSession } from "@/lib/nextauth";
 import { checkAnswerSchema } from "@/schemas/checkAnswerSchema";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
+import { compareTwoStrings } from "string-similarity";
 
 // POST api/checkAnswer
 export async function POST(req: Request, res: Response) {
@@ -43,6 +44,16 @@ export async function POST(req: Request, res: Response) {
 
             return NextResponse.json(
                 { isCorrect, },
+                { status: 200, },
+            );
+        } else if (question.questionType === "fill_in") {
+            let similarity = Math.round((compareTwoStrings(userAnswer.toLowerCase().trim(), question.answer.toLowerCase().trim())) * 100);
+            await prisma.question.update({
+                where: { id: questionId, },
+                data: { correctness: similarity, },
+            })
+            return NextResponse.json(
+                { similarity, },
                 { status: 200, },
             );
         }

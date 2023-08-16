@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
-  title: "Create New Trivia | Braintrivi"
+  title: "Create New Trivia Game | Braintrivi"
 }
 
 export default async function Trivia() {

@@ -61,7 +61,7 @@ export default function CreateTrivia() {
   return (
     <div className="flex items-center justify-center">
       <div className="max-w-md w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow shadow-rose-50 m-4 md:mt-8">
-        <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-900">Generate New Trivia</h5>
+        <h5 className="mb-2 text-2xl md:text-3xl font-bold tracking-tight text-gray-900">Create New Trivia Game</h5>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit(submitData)}>
           <FormLabel text="Choose a topic"/>
           <input className="border-2 border-rose-100 rounded-md p-2 focus:outline-rose-500" type="text" {...register("topic")} />

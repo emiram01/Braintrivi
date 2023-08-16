@@ -13,4 +13,4 @@ export function formatTimeDelta(seconds: number) {
       parts.push(`${secs}s`);
     }
     return parts.join(" ");
-  }
+}

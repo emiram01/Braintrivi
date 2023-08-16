@@ -3,9 +3,7 @@
 import { Game, Question } from "@prisma/client";
 import GameTimer from "./GameTimer";
 import QuestionCounter from "./QuestionCounter";
-import ScoreCounter from "./ScoreCounter";
 import GameQuestion from "./GameQuestion";
-import GameOptionButton from "./GameOptionButton";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ChevronRight, Loader2 } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
@@ -13,21 +11,20 @@ import axios from "axios";
 import { z } from "zod";
 import { checkAnswerSchema } from "@/schemas/checkAnswerSchema";
 import AnswerCheckPopUp from "./AnswerCheckPopUp";
-import MCTFGameCompletion from "./MCTFGameCompletion";
+import FIGameCompletion from "./FIGameCompletion";
 import { differenceInSeconds } from "date-fns";
 import { formatTimeDelta } from "@/lib/utils";
+import GameTextInput from "./GameTextInput";
 
 type Props = {
-  game: Game & {questions: Pick<Question, "id" | "options" | "question">[]};
+  game: Game & {questions: Pick<Question, "id" | "answer" | "question">[]};
 }
 
-export default function MCTFGame({ game }: Props) {
+export default function FIGame({ game }: Props) {
   const [questionIndex, setQuestionIndex] = useState<number>(0);
-  const [selectedOption, setSelectedOption] = useState<number>(-1);
-  const [correctAnswers, setCorrectAnswers] = useState<number>(0);
-  const [wrongAnswers, setWrongAnswers] = useState<number>(0);
   const [hasEnded, setHasEnded] = useState<boolean>(false);
   const [now, setNow] = useState<Date>(new Date);
+  const [blankAnswer, setBlankAnswer] = useState<string>("");
   const [popUp, setPopUp] = useState<{ message: string; type: "success" | "error" | "neutral" } | null>(null);
   
   useEffect(() => {
@@ -44,9 +41,15 @@ export default function MCTFGame({ game }: Props) {
 
   const {mutate: checkAnswer, isLoading: isChecking} = useMutation({
     mutationFn: async () => {
+      let filledAnswer= blankAnswer;
+      document.querySelectorAll("#blank-input").forEach(input => {
+        filledAnswer = filledAnswer.replace("_____", input.value);
+        input.value = "";
+      });
+
       const payload: z.infer<typeof checkAnswerSchema> = {
         questionId: currentQuestion.id,
-        userAnswer: options[selectedOption],
+        userAnswer: filledAnswer,
       }
       const response = await axios.post('/api/checkAnswer', payload);
       return response.data;
@@ -56,20 +59,13 @@ export default function MCTFGame({ game }: Props) {
   const handleNext = useCallback(() => {
     if (isChecking) return;
     checkAnswer(undefined, {
-      onSuccess: ({ isCorrect }) => {
-        if (isCorrect) {
-          setCorrectAnswers(prev => prev + 1);
-          setPopUp({ message: "Correct answer!", type: "success" });
-        } else {
-          setWrongAnswers(prev => prev + 1);
-          setPopUp({ message: "Wrong answer!", type: "error" });
-        }
+      onSuccess: ({ similarity }) => {
+        setPopUp({ message: `Accuracy: ${ similarity } %`, type: "neutral" });
         if (questionIndex === game.questions.length - 1) {
           setHasEnded(true);
           return;
         }
         setQuestionIndex(prev => prev + 1);
-        setSelectedOption(-1);
       },
     });
   }, [checkAnswer, popUp, isChecking, questionIndex, game.questions.length])
@@ -77,13 +73,6 @@ export default function MCTFGame({ game }: Props) {
   const currentQuestion = useMemo(() => {
     return game.questions[questionIndex];
   }, [questionIndex, game.questions]);
-
-  const options: string[] = useMemo(() => {
-    if (!currentQuestion?.options)
-      return [];
-
-    return JSON.parse(currentQuestion.options as string);
-  }, [currentQuestion]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -96,7 +85,7 @@ export default function MCTFGame({ game }: Props) {
   }, [handleNext]);
 
   if (hasEnded) {
-    return <MCTFGameCompletion gameId={ game.id } totalCorrect={ correctAnswers } questionAmount={ game.questions.length } timeCompleted={formatTimeDelta(differenceInSeconds(now, game.timeStarted))} />
+    return <FIGameCompletion gameId={ game.id } correctness={ 100 } questionAmount={ game.questions.length } timeCompleted={formatTimeDelta(differenceInSeconds(now, game.timeStarted))} />
   }
 
   return (
@@ -109,26 +98,17 @@ export default function MCTFGame({ game }: Props) {
       <div className="w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow shadow-rose-50">
         <div className="flex flex-wrap justify-between">
           <QuestionCounter currQuestion={ questionIndex + 1 } qAmount={ game.questions.length }/>
-          <ScoreCounter correct={correctAnswers} wrong={wrongAnswers}/>
+          {/* <ScoreCounter correct={correctAnswers} wrong={wrongAnswers}/> */}
         </div>
         <GameQuestion question={ currentQuestion.question }/>
-        <div className="flex flex-col mt-4 gap-2">
+        <div className="">
           { 
-            options.map((option, index) => {
-              return (
-                <GameOptionButton 
-                  key={index}
-                  text={ option }
-                  isSelected={ selectedOption === index }
-                  select={ () => setSelectedOption(index) }
-                /> 
-              )
-            })
+            <GameTextInput answer={ currentQuestion.answer } setBlankAnswer={ setBlankAnswer } />
           }
         </div>
         <button 
             className="flex gap-2 items-center justify-between mt-5 bg-rose-400 text-white font-semibold text-xl p-2 pl-3 rounded-lg mx-auto hover:bg-rose-500 disabled:bg-gray-400 disabled:hover:bg-gray-400" 
-            disabled={ selectedOption === -1 || isChecking }
+            disabled={ isChecking }
             onClick={() => {
               handleNext();
             }}
