@@ -21,7 +21,7 @@ export default async function Home() {
           <div className="w-full mx-auto sm:flex items-center justify-center">
             <Image 
               src={ '/brainAnim3.gif' }
-              alt="Loading"
+              alt="sign in image"
               width={500}
               height={500}
             />
