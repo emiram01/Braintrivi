@@ -86,7 +86,7 @@ export default function CreateTrivia({ topicParam }: Props) {
           {errors.topic && <FormError text={ errors.topic.message } />}
           
           <FormLabel text="How many questions would you like to generate?"/>
-          <input className="border-2 border-rose-100 rounded-md p-2 focus:outline-rose-500" type="number" min={1} max={10} {...register("amount", {valueAsNumber: true})} />
+          <input className="border-2 border-rose-100 rounded-md p-2 focus:outline-rose-500" type="number" min={1} max={5} {...register("amount", {valueAsNumber: true})} />
           {errors.amount && <FormError text={ errors.amount.message } />}
 
           <FormLabel text="What type of trivia would you like to play?"/>
