@@ -9,7 +9,7 @@ An AI trivia generator that creates a unique trivia game based on any topic you 
 
 ## 🎞 Demo
 
-https://github.com/emiram01/Braintrivi/assets/67139085/2b840171-d96b-4aeb-afbf-836b707fb4b0
+https://github.com/emiram01/Braintrivi/assets/67139085/a5a4f3c7-d786-46c1-a409-bf1e1157e829
 
 ## 🔗 Links
 [![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://emilianoramirez.com/)
