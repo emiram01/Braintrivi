@@ -19,7 +19,7 @@ export default function AnswerCheckPopUp({ message, type, onClose }: Props) {
   }, []);
 
   return (
-    <div className={`flex w-full mt-4 p-4 rounded-lg ${type === "neutral" ? "bg-gray-400" : type === "success" ? "bg-lime-500" : "bg-red-500"}`}>
+    <div className={`flex w-full mt-4 p-4 rounded-lg ${type === "neutral" ? "bg-rose-300" : type === "success" ? "bg-lime-500" : "bg-red-500"}`}>
       <div className="flex w-full justify-between items-center font-semibold text-white">
         { message }
         <button

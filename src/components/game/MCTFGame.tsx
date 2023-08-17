@@ -13,7 +13,7 @@ import axios from "axios";
 import { z } from "zod";
 import { checkAnswerSchema } from "@/schemas/checkAnswerSchema";
 import AnswerCheckPopUp from "./AnswerCheckPopUp";
-import MCTFGameCompletion from "./MCTFGameCompletion";
+import GameCompletion from "./GameCompletion";
 import { differenceInSeconds } from "date-fns";
 import { formatTimeDelta } from "@/lib/utils";
 
@@ -96,7 +96,7 @@ export default function MCTFGame({ game }: Props) {
   }, [handleNext]);
 
   if (hasEnded) {
-    return <MCTFGameCompletion gameId={ game.id } totalCorrect={ correctAnswers } questionAmount={ game.questions.length } timeCompleted={formatTimeDelta(differenceInSeconds(now, game.timeStarted))} />
+    return <GameCompletion gameId={ game.id } timeCompleted={formatTimeDelta(differenceInSeconds(now, game.timeStarted))} />
   }
 
   return (

@@ -11,10 +11,11 @@ import axios from "axios";
 import { z } from "zod";
 import { checkAnswerSchema } from "@/schemas/checkAnswerSchema";
 import AnswerCheckPopUp from "./AnswerCheckPopUp";
-import FIGameCompletion from "./FIGameCompletion";
+import GameCompletion from "./GameCompletion";
 import { differenceInSeconds } from "date-fns";
 import { formatTimeDelta } from "@/lib/utils";
 import GameTextInput from "./GameTextInput";
+import AccuracyCounter from "./AccuracyCounter";
 
 type Props = {
   game: Game & {questions: Pick<Question, "id" | "answer" | "question">[]};
@@ -83,9 +84,10 @@ export default function FIGame({ game }: Props) {
       document.removeEventListener("keydown", handleKeyDown);
     }
   }, [handleNext]);
+  
 
   if (hasEnded) {
-    return <FIGameCompletion gameId={ game.id } correctness={ 100 } questionAmount={ game.questions.length } timeCompleted={formatTimeDelta(differenceInSeconds(now, game.timeStarted))} />
+    return <GameCompletion gameId={ game.id } timeCompleted={formatTimeDelta(differenceInSeconds(now, game.timeStarted))} />
   }
 
   return (
@@ -98,6 +100,7 @@ export default function FIGame({ game }: Props) {
       <div className="w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow shadow-rose-50">
         <div className="flex flex-wrap justify-between">
           <QuestionCounter currQuestion={ questionIndex + 1 } qAmount={ game.questions.length }/>
+          <AccuracyCounter accuracy=""/>
           {/* <ScoreCounter correct={correctAnswers} wrong={wrongAnswers}/> */}
         </div>
         <GameQuestion question={ currentQuestion.question }/>

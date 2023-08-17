@@ -12,10 +12,14 @@ import FormDifficultyButton from "./FormDifficultyButton";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Loading from "./Loading";
 
 type TriviaFormData = z.infer<typeof triviaCreationSchema>;
 
 export default function CreateTrivia() {
+  const [showLoader, setShowLoader]= useState<boolean>(false);
+  const [finished, setFinished]= useState<boolean>(false);
   const router = useRouter();
   const { mutate: getQuestions, isLoading } = useMutation({
     mutationFn: async ({ amount, topic, type, difficulty }: TriviaFormData) => {
@@ -39,6 +43,7 @@ export default function CreateTrivia() {
   watch(["type", "difficulty"]);
 
   const submitData = (input: TriviaFormData) => {
+    setShowLoader(true);
     getQuestions({
       amount: input.amount,
       topic: input.topic,
@@ -46,16 +51,25 @@ export default function CreateTrivia() {
       difficulty: input.difficulty,
     }, {
       onSuccess: ({ gameId }) => {
-        if (getValues("type") === "multiple_choice") {
-          router.push(`/play/multiple-choice/${ gameId }`);
-        } else if (getValues("type") === "fill_in") {
-          router.push(`/play/fill-in/${ gameId }`);
-        } else if (getValues("type") === "true_or_false") {
-          router.push(`/play/true-or-false/${ gameId }`);
-        }
+        setFinished(true);
+        setTimeout(() => {
+          if (getValues("type") === "multiple_choice") {
+            router.push(`/play/multiple-choice/${ gameId }`);
+          } else if (getValues("type") === "fill_in") {
+            router.push(`/play/fill-in/${ gameId }`);
+          } else if (getValues("type") === "true_or_false") {
+            router.push(`/play/true-or-false/${ gameId }`);
+          }
+        }, 1000);
+      },
+      onError: () => {
+        setShowLoader(false);
       }
-    }
-    )
+    })
+  }
+
+  if (showLoader) {
+    return <Loading finishedLoading={ finished }/>
   }
 
   return (
