@@ -20,7 +20,7 @@ export default async function Home() {
           <h3 className="text-base md:text-lg text-gray-700 text-center">Want to test your knowledge? Challenge yourself with AI-generated trivia games on any topic you can think of. Put your brain to the test and start playing for free today!</h3>
           <div className="w-full mx-auto sm:flex items-center justify-center">
             <Image 
-              src={ '/brainAnim3.gif' }
+              src={ '/BrainAnim3.gif' }
               alt="sign in image"
               width={500}
               height={500}

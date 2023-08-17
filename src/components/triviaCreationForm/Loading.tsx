@@ -30,7 +30,7 @@ export default function Loading({ finishedLoading }: Props) {
     <div className="flex flex-col items-center justify-center px-4 py-10 mx-auto max-w-4xl">
       <div className="flex flex-col items-center w-full justify-center p-6 bg-white border-2 border-rose-100 rounded-lg shadow text-rose-400 font-semibold text-lg md:text-2xl gap-4">
         <Image 
-          src={ '/brainAnim1.gif' }
+          src={ '/BrainAnim1.gif' }
           alt="Loading"
           width={500}
           height={500}
