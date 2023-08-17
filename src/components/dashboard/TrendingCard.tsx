@@ -26,7 +26,7 @@ export default async function TrendingCard() {
           >
             <span className="font-medium">{ topic.topic.toUpperCase() }</span>
             <Link
-              href={`/tivia/${ topic.topic }`}
+              href={`/trivia?topic=${ topic.topic }`}
               className="flex gap-1 items-center text-rose-400 hover:text-rose-500"
             >
               Generate <ChevronRight />

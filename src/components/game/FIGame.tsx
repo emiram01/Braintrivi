@@ -16,6 +16,7 @@ import { differenceInSeconds } from "date-fns";
 import { formatTimeDelta } from "@/lib/utils";
 import GameTextInput from "./GameTextInput";
 import AccuracyCounter from "./AccuracyCounter";
+import ts from "typescript";
 
 type Props = {
   game: Game & {questions: Pick<Question, "id" | "answer" | "question">[]};

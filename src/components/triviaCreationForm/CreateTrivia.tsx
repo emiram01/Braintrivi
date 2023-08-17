@@ -17,7 +17,11 @@ import Loading from "./Loading";
 
 type TriviaFormData = z.infer<typeof triviaCreationSchema>;
 
-export default function CreateTrivia() {
+type Props = {
+  topicParam: string;
+}
+
+export default function CreateTrivia({ topicParam }: Props) {
   const [showLoader, setShowLoader]= useState<boolean>(false);
   const [finished, setFinished]= useState<boolean>(false);
   const router = useRouter();
@@ -34,7 +38,7 @@ export default function CreateTrivia() {
     resolver: zodResolver(triviaCreationSchema),
     defaultValues: {
       amount: undefined,
-      topic: "",
+      topic: topicParam,
       type: "multiple_choice",
       difficulty: "easy",
     },

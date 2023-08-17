@@ -7,13 +7,19 @@ export const metadata: Metadata = {
   title: "Create New Trivia Game | Braintrivi"
 }
 
-export default async function Trivia() {
+type Props = {
+  searchParams: {
+    topic?: string;
+  };
+}
+
+export default async function Trivia({ searchParams }: Props) {
   const session = await getAuthSession();
   if (!session?.user) {
     redirect("/");
   }
 
   return (
-      <CreateTrivia />
+      <CreateTrivia topicParam={searchParams.topic ?? ""} />
   )
 }
