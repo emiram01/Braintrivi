@@ -2,7 +2,6 @@ import { getAuthSession } from "@/lib/nextauth"
 import Link from "next/link";
 import SignInButton from "./SignInButton";
 import AccountNav from "./AccountNav";
-import { Info } from "lucide-react";
 
 type Props = {}
 
@@ -15,14 +14,16 @@ export default async function Navbar(props: Props) {
           BR<span className="text-rose-500">AI</span>NTRIVI
         </Link>
         <div className="flex items-center gap-4">
-          <Link href='/dashboard' className="hidden md:flex items-center gap-2 text-lg font-semibold hover:text-rose-500">
-            Dashboard
-          </Link>
-          <Link href='/trivia' className="hidden md:flex items-center text-white gap-2 text-lg font-bold hover:bg-rose-500 rounded px-3 py-1 bg-rose-400">
-            PLAY
-          </Link>
           {session?.user ? (
-            <AccountNav user={session.user}/>
+            <>
+              <Link href='/dashboard' className="hidden md:flex items-center gap-2 text-lg font-semibold hover:text-rose-500">
+                Dashboard
+              </Link>
+              <Link href='/trivia' className="hidden md:flex items-center text-white gap-2 text-lg font-bold hover:bg-rose-500 rounded px-3 py-1 bg-rose-400">
+                PLAY
+              </Link>
+              <AccountNav user={session.user}/>
+            </>
           ) : (
             <SignInButton text="Sign In" />
           )}
