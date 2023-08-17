@@ -14,14 +14,12 @@ export default function AccountDropdown({ name, email }: Props) {
       {email && <div className="truncate">{ email }</div>}
     </div>
     <ul className="py-2" aria-labelledby="dropdownInformationButton">
-      <li>
-        <Link href="/dashboard" className="block px-4 py-2 hover:bg-rose-50">Dashboard</Link>
-      </li>
+      
       <li>
         <Link href="/trivia" className="block px-4 py-2 hover:bg-rose-50">Generate New Trivia</Link>
       </li>
       <li>
-        <Link href="/trending" className="block px-4 py-2 hover:bg-rose-50">Trending Topics</Link>
+        <Link href="/dashboard" className="block px-4 py-2 hover:bg-rose-50">Dashboard</Link>
       </li>
       <li>
         <Link href="/history" className="block px-4 py-2 hover:bg-rose-50">History</Link>

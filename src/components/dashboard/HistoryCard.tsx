@@ -32,7 +32,7 @@ export default async function HistoryCard({ limit, userId, seeMore, gamesPlayed 
         </>
       }
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mt-10">
         {games.map((game) => {
           return (
             <div className="flex items-center" key={game.id}>

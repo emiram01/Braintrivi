@@ -1,8 +1,6 @@
 import ScoreCard from "@/components/results/ScoreCard";
 import { prisma } from "@/lib/db";
 import { getAuthSession } from "@/lib/nextauth";
-import { formatTimeDelta } from "@/lib/utils";
-import { differenceInSeconds } from "date-fns";
 import { LayoutDashboard } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
