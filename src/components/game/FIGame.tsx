@@ -111,7 +111,7 @@ export default function FIGame({ game }: Props) {
           }
         </div>
         <button 
-            className="flex gap-2 items-center justify-between mt-5 bg-rose-400 text-white font-semibold text-xl p-2 pl-3 rounded-lg mx-auto hover:bg-rose-500 disabled:bg-gray-400 disabled:hover:bg-gray-400" 
+            className="flex gap-2 items-center justify-between mt-5 bg-rose-400 text-white font-semibold text-xl p-2 pl-3 rounded-lg mx-auto hover:bg-rose-500 disabled:bg-rose-100 disabled:hover:bg-rose-100" 
             disabled={ isChecking }
             onClick={() => {
               handleNext();

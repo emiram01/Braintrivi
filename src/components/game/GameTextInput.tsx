@@ -1,5 +1,5 @@
 import keyword_extractor from "keyword-extractor";
-import { ArrowRightLeft, ChevronRight, ChevronRightCircle, ChevronRightSquare, MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import { Dispatch, SetStateAction, useMemo } from "react";
 
 type Props = {
@@ -34,21 +34,24 @@ export default function GameTextInput({ answer, setBlankAnswer } : Props) {
   return (
     <div className="mt-4 flex gap-4 text-md md:text-lg font-normal items-center text-gray-700">
       <MoveRight/>
-      { answerWithBlanks.split(BLANKS).map((part, index) => {
-        return (
-          <div className="flex items-center">
-            { part }
-            { index === answerWithBlanks.split(BLANKS).length - 1 ? null : (
-              <input
-                id="blank-input"
-                className="text-center border-2 border-rose-100 text-gray-700 font-bold rounded focus:outline-rose-500 mx-2"
-                >
-              </input>
-            )}
-          </div>
-        );
+      <div className="flex flex-wrap gap-2">
+        { answerWithBlanks.split(BLANKS).map((part, index) => {
+          return (
+            <div className="flex items-center gap-2">
+              { part }
+              { index === answerWithBlanks.split(BLANKS).length - 1 ? null : (
+                <input
+                  autoComplete="off"
+                  id="blank-input"
+                  className="text-center border-2 border-rose-100 text-gray-700 font-bold rounded focus:outline-rose-500"
+                  >
+                </input>
+              )}
+            </div>
+          );
+        }) }
+      </div>
 
-      }) }
     </div>
   )
 }

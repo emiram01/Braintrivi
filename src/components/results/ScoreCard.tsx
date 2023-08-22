@@ -13,7 +13,7 @@ type Props = {
 
 export default  function ScoreCard({ topic, difficulty, type, accuracy, questions }: Props) {
   return (
-    <div className="w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow">
+    <div className="w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow shadow-rose-50">
       <h5 className="flex flex-wrap text-2xl md:text-3xl font-bold tracking-tight text-gray-900 items-center justify-between gap-2">
         { topic }
         <div className="flex flex-wrap gap-2 font-medium text-base text-gray-700">

@@ -65,7 +65,7 @@ export default async function ResultsPage({params: { gameId }}: Props) {
       <h2 className="mb-4 flex flex-wrap items-center justify-between text-3xl font-bold w-full">
         Results
         <Link
-          className="flex gap-2 items-center bg-rose-400 text-white font-semibold text-base md:text-xl p-2 px-3 rounded-lg hover:bg-rose-500 disabled:bg-gray-400 disabled:hover:bg-gray-400"
+          className="flex gap-2 items-center bg-rose-400 text-white font-semibold text-base md:text-xl p-2 px-3 rounded-lg hover:bg-rose-500"
           href="/dashboard"
         >
           Dashboard <LayoutDashboard />

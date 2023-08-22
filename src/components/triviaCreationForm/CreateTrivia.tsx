@@ -82,7 +82,9 @@ export default function CreateTrivia({ topicParam }: Props) {
         <h5 className="mb-2 text-2xl md:text-3xl font-bold tracking-tight text-gray-900">Create New Trivia Game</h5>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit(submitData)}>
           <FormLabel text="Choose a topic"/>
-          <input className="border-2 border-rose-100 rounded-md p-2 focus:outline-rose-500" type="text" {...register("topic")} />
+          <input 
+            autoComplete="off"
+            className="border-2 border-rose-100 rounded-md p-2 focus:outline-rose-500" type="text" {...register("topic")} />
           {errors.topic && <FormError text={ errors.topic.message } />}
           
           <FormLabel text="How many questions would you like to generate?"/>
@@ -136,7 +138,7 @@ export default function CreateTrivia({ topicParam }: Props) {
           {errors.difficulty && <FormError text={ errors.difficulty.message } />}
 
           <button 
-            className="mt-3 bg-rose-400 text-white font-semibold text-xl p-2 rounded-lg mx-auto w-1/2 hover:bg-rose-500 disabled:bg-gray-400 disabled:hover:bg-gray-400" 
+            className="mt-3 bg-rose-400 text-white font-semibold text-xl p-2 rounded-lg mx-auto w-1/2 hover:bg-rose-500 disabled:bg-rose-200 disabled:hover:bg-rose-200" 
             type="submit"
             disabled={isLoading}
           >
