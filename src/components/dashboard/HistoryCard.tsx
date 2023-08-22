@@ -21,7 +21,7 @@ export default async function HistoryCard({ limit, userId, seeMore, gamesPlayed 
   });
 
   return (
-    <div className="w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow">
+    <div className="w-full p-6 bg-white border-2 border-rose-100 rounded-lg shadow shadow-rose-50">
       {seeMore && 
         <>
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 flex items-center justify-between">
