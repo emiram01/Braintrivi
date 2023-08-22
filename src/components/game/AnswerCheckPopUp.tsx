@@ -1,5 +1,5 @@
 import React, {  useEffect } from "react";
-import { XCircle } from "lucide-react";
+import { XCircle, CheckCircle2, Target } from "lucide-react";
 
 type Props = {
   message: string;
@@ -19,15 +19,13 @@ export default function AnswerCheckPopUp({ message, type, onClose }: Props) {
   }, []);
 
   return (
-    <div className={`flex w-full bg-white border-2 border-rose-100 shadow shadow-rose-50 mt-4 p-4 rounded-lg ${type === "neutral" ? "text-gray-700" : type === "success" ? "text-lime-500" : "text-red-500"}`}>
+    <button 
+      onClick={onClose}
+      className={`flex w-full bg-white border-2 border-rose-100 shadow shadow-rose-50 mt-4 p-4 rounded-lg ${type === "neutral" ? "text-gray-700" : type === "success" ? "text-lime-500 bg-lime-50" : "text-red-500 bg-red-50"}`}>
       <div className="flex w-full justify-between items-center font-semibold">
         { message }
-        <button
-        className="hover:text-gray-300"
-        onClick={onClose}>
-          <XCircle />
-        </button>
+        {type === "success" ? <CheckCircle2 /> : type === "error" ? <XCircle /> : <Target />}
       </div>
-    </div>
+    </button>
   );
 };
